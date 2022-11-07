@@ -1,0 +1,239 @@
+---
+title: "Dados de Biodiversidade :"
+subtitle: "Desafios e oportunidades"
+author: Tainá Rocha
+institute: Programa de Pesquisa em Biodiversidade - MCTI
+date: today
+date-format: "dddd, [the] D[<sup style='font-size:65%;font-style:italic;'>th</sup>] [of] MMMM, YYYY"
+embed-resources: false
+format: coeos-revealjs
+---
+
+```{r}
+#| include: false
+sysfonts::font_add_google("Alegreya Sans", "Alegreya Sans", regular.wt = 300)
+showtext::showtext_auto()
+source("_extensions/coeos/setup-ggplot2-coeos.R")
+```
+
+## A biodiversidade na era do big data
+
+Dados genômicos, ocorrência de espécies e outros são exemplos mais evidentes
+
+```{r genetcis, echo=FALSE, fig.align='left', out.height="30%"}
+knitr::include_graphics("images/gen_occ.png")
+```
+
+## A biodiversidade na era do big data
+
+```{r envs, echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("images/env.png")
+```
+
+## Avanços 
+
+```{r papers, echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("images/papers.png")
+```
+
+## Desafios
+
+Computacionais : Processamento e RH qualificado
+
+```{r compute, echo=FALSE, fig.align='center', out.width="100%"}
+knitr::include_graphics("images/compute.png")
+```
+
+Feng et al. 2020
+
+## Desafios
+
+Dados de ocorrência de espécies :
+
+-    integração de diferentes bases (diferentes conceitos taxômociso, diferntes unidades / medidas)
+
+-    Inúmeros fontes de erros nas bases dados\* (indentificação incorreta, coordenadas imprecisas, dados provenintes de grades\* etc etc etc...)
+
+## Gridder 
+
+Ferramenta para melhorar/corrigir a qualidade de dados do [GBIF](https://www.gbif.org/) provenientes de sistemas de grades.
+
+```{r gridder, echo=FALSE, fig.align='center', out.width="90%"}
+knitr::include_graphics("images/gridder.png")
+```
+
+## Gridder 
+
+- Rastrear pontos em grade
+
+- Quantificar variação geográfica e ambiental 
+
+- Recuperar metadados desses sistemas 
+
+## Instalção 
+
+```{r install package, echo= TRUE, warning=FALSE, eval=FALSE}
+remotes::install_github("BiogeographyLab/gridder")
+```
+
+## Dados do pacote
+
+```{r metadado,warning=FALSE, echo=TRUE, message=FALSE, eval=FALSE}
+grid_sys = download_demoGrid(downloadNew = F)
+```
+
+```{r metadado_viz, warning=FALSE, echo=FALSE, message=FALSE, eval=TRUE}
+table_2 = gsheet::gsheet2tbl("https://docs.google.com/spreadsheets/d/1Qp5KOpLSVnF2t16uIbNwKwK5ZBXt4k5unONp7eopPzI/edit#gid=166945453")
+table_2
+```
+
+## Dados do pacote 
+```{r data, warning=FALSE, echo=TRUE, message=FALSE}
+library(gridder)
+data("occs_unique") 
+data("ne_10m_admin_0_countries")
+```
+
+## Dados do pacote 
+
+```{r data_plot, echo=FALSE, fig.align='center',fig.width=6,fig.height=6}
+library(ggplot2)
+library(broom)
+data("ne_10m_admin_0_countries") # load NaturalEarth world map
+spdf_fortified = broom::tidy(ne_10m_admin_0_countries, region = "ADMIN")
+ggplot2::ggplot() +
+  geom_polygon(data = spdf_fortified, 
+               aes( x = long, y = lat, group = group), 
+               fill="#69b3a2", color="white") +
+  geom_point(data = occs_unique,
+             aes(x = decimalLongitude, y = decimalLatitude), 
+             size = 2, 
+        shape = 23, fill = "darkred") +
+	coord_sf(xlim = c(0, 6), ylim = c(46, 50), expand = FALSE)
+```
+
+## `infer_crs`
+Inferir o CRS (sistema de referência de coordenadas)
+
+```{r infer_crs, echo=TRUE, eval=FALSE}
+results_crs = gridder::infer_crs(occ_path = occs_unique, cup_num = 4) 
+```
+
+```{r infer_crs_2, echo=FALSE, eval=TRUE}
+results_crs = readRDS("results_crs.rds")
+print(results_crs$selected[1:5, c("code", "note")])
+```
+
+
+## `infer_resolution`
+
+Inferir a resolução espacial 
+
+```{r infer_resolution_1, echo=FALSE, warning=FALSE, message=FALSE}
+input_occ = gridder::load_occ(occs_unique)
+input_occ_prj = sp::spTransform(input_occ,
+                                crs(paste0("+init=epsg:","2154"))
+                                )
+```
+
+```{r infer_resolution_3, echo=TRUE}
+result_res=gridder::infer_resolution(input_coord = input_occ_prj@coords,
+                                       flag_unit="meter")
+print(result_res$res_x)
+print(result_res$res_y)
+```
+
+## `infer_extent`
+
+Inferir a extensão espacial 
+
+```{r infer_extent, echo=TRUE}
+result_ext = gridder::infer_extent(method="crs_extent",
+                           crs_grid=2154,
+                           flag_adjust_by_res=TRUE,
+                           res_x=result_res$res_x,
+                           res_y=result_res$res_y)
+ 
+print(result_ext)
+```
+
+## `grid_generation`
+
+Simulando um sistema de grade baseado em metadados
+
+```{r grid_generation}
+simulated_grid = gridder::grid_generation(res_x=40000,
+                                           res_y=20000,
+                                           unit="m",
+                                           flag_crs=TRUE,
+                                           country="France",
+                                           extent_unit="empirical_occ_extent",
+                                           input_extent=result_ext,
+                                           crs_num=2154,
+                                           flag_maskByCountry=TRUE)
+```
+
+## `assess_env_uncertainty`
+
+Calculando a variação ambiental de um sistema de grade
+
+```{r initi, echo=FALSE, warning=FALSE, message=FALSE, results= "hide"}
+rgee::ee_Initialize()
+```
+
+Sist. de grade disponibilizado no pacote
+
+```{r gri_id_9, echo=TRUE, warning=FALSE, fig.align='center', fig.width=10,fig.height=10}
+data("grid_ID_9")
+plot(grid_ID_9)
+```
+
+```{r sf_as_ee, echo=FALSE, message=FALSE, warning=FALSE}
+grid = grid_ID_9 |> 
+  rgee::sf_as_ee()
+```
+
+## `assess_env_uncertainty`
+
+Acessando um dado de elevação
+
+```{r rgee_nasaden, echo=TRUE}
+nasadem = rgee::ee$Image('NASA/NASADEM_HGT/001')$select('elevation')  
+```
+
+## `assess_env_uncertainty`
+
+Variação | Incerteza ambiental 
+
+```{r uncert, echo=TRUE}
+std_dev = gridder::assess_env_uncertainty(x= nasadem, y= grid)
+```
+
+
+```{r uncert_2, echo=TRUE}
+print(std_dev, n=3)
+```
+
+## `assess_env_uncertainty`
+
+Visualizando a variação da elevação no espaço geográfico
+
+```{r uncert_plot, echo= FALSE, fig.align='center', fig.width=8,fig.height=8}
+library(ggplot2)
+ggplot(data = grid_ID_9) +
+  geom_sf(aes(fill = std_dev$elevation))+
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt")
+```
+
+## Take home Message
+
+## 
+
+<center> Obrigada! </center>
+<br/>
+<br/>
+<center><img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/11633554?v=4" width="250px"/></center>
+<center>[`r fontawesome::fa("github")` @Tai-Rocha](https://github.com/Tai-Rocha)</center>    
+<center>[`r fontawesome::fa("twitter")` @Tai_Rocha_](https://twitter.com/Tai_Rocha_)</center>   
+<center>[`r fontawesome::fa("link")` tainaweb-en.netlify.app](https://tainaweb-en.netlify.app/)</center>
+

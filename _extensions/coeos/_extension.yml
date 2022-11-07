@@ -11,5 +11,5 @@ contributes:
         <a href="https://mickael.canouil.fr/">mickael.canouil.fr</a>
         |
         <a href = "https://creativecommons.org/licenses/by-sa/4.0/">License: CC-BY-SA-4.0</a>
-      logo: coeos.svg
+      logo: coeos.png
       include-in-header: favicon.html
