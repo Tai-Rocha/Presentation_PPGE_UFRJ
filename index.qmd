@@ -1,5 +1,5 @@
 ---
-title: "Dados de Biodiversidade :"
+title: "Dados de Biodiversidade:"
 subtitle: "Desafios e oportunidades"
 author: Tainá Rocha
 institute: Programa de Pesquisa em Biodiversidade - MCTI
@@ -18,7 +18,7 @@ source("_extensions/coeos/setup-ggplot2-coeos.R")
 
 ## A biodiversidade na era do big data
 
-Dados genômicos, ocorrência de espécies e outros são exemplos mais evidentes
+Dados genômicos, ocorrência de espécies são exemplos mais evidentes
 
 ```{r genetcis, echo=FALSE, fig.align='center', out.height="100%"}
 knitr::include_graphics("images/gen_occ.png")
@@ -38,7 +38,7 @@ knitr::include_graphics("images/papers.png")
 
 ## Desafios
 
-Computacionais : Processamento e RH qualificado
+Computacionais: Processamento e RH qualificado
 
 ```{r compute, echo=FALSE, fig.align='center', out.width="100%"}
 knitr::include_graphics("images/compute.png")
@@ -48,15 +48,15 @@ Feng et al. 2020
 
 ## Desafios
 
-Dados de ocorrência de espécies :
+Dados de ocorrência de espécies:
 
 -    Integração de diferentes bases (diferentes conceitos taxonômicos, diferentes unidades / medidas)
 
--    Inúmeras fontes de erros nas bases dados\* (identificação incorreta, coordenadas imprecisas, dados provenientes de grades\* etc etc...)
+-    Inúmeras fontes de erros nas bases dados (identificação incorreta, coordenadas imprecisas, dados provenientes de grades, etc., etc...)
 
 ## Gridder 
 
-Ferramenta para melhorar/corrigir a qualidade de dados do [GBIF](https://www.gbif.org/) provenientes de sistemas de grades.
+Ferramenta para melhorar/corrigir a qualidade de dados provenientes de sistemas de grades, especialmente as do [GBIF](https://www.gbif.org/).
 
 ```{r gridder, echo=FALSE, fig.align='center', out.width="90%"}
 knitr::include_graphics("images/gridder.png")
@@ -68,9 +68,9 @@ knitr::include_graphics("images/gridder.png")
 
 - Quantificar variação geográfica e ambiental 
 
-- Recuperar metadados desses sistemas 
+- Recuperar metadados desses sistemas
 
-## Instalção 
+## Instalação 
 
 ```{r install package, echo= TRUE, warning=FALSE, eval=FALSE}
 remotes::install_github("BiogeographyLab/gridder")
@@ -114,7 +114,6 @@ ggplot2::ggplot() +
 
 ## `infer_crs`
 Inferir o CRS (sistema de referência de coordenadas)
-
 ```{r infer_crs, echo=TRUE, eval=FALSE}
 results_crs = gridder::infer_crs(occ_path = occs_unique, cup_num = 4) 
 ```
@@ -160,7 +159,6 @@ print(result_ext)
 ## `grid_generation`
 
 Simulando um sistema de grade baseado em metadados
-
 ```{r grid_generation, echo=TRUE}
 simulated_grid = gridder::grid_generation(res_x=40000,
                                            res_y=20000,
@@ -176,7 +174,6 @@ simulated_grid = gridder::grid_generation(res_x=40000,
 ## `grid_generation`
 
 Simulando um sistema de grade baseado em metadados
-
 ```{r check_simulated, echo=TRUE, include=TRUE, fig.width=5, fig.height=5, fig.align='center'}
 plot(simulated_grid,
    xlim=c(extent(input_occ_prj)[1],extent(input_occ_prj)[1]+110000),
@@ -193,7 +190,7 @@ Calculando a variação ambiental de um sistema de grade
 rgee::ee_Initialize()
 ```
 
-Sist. de grade disponibilizado no pacote
+Sistema de grade disponibilizado no pacote
 
 ```{r gri_id_9, echo=TRUE, warning=FALSE, fig.align='center', fig.width=10,fig.height=10}
 data("grid_ID_9")
@@ -249,7 +246,7 @@ knitr::include_graphics("images/honors.png")
 
 - Apesar de crescente o volume de dados, também é ampla variedade de fontes de erros associados
 
-- Minimizar as fontes de erros é essencial para bons resultados e insights 
+- Minimizar as fontes de erros é essencial para bons resultados e insights
 
 ## 
 

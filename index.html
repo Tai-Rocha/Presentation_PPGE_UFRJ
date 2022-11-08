@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.247">
 
   <meta name="author" content="Tainá Rocha">
-  <title>Dados de Biodiversidade :</title>
+  <title>Dados de Biodiversidade:</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -389,7 +389,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Dados de Biodiversidade :</h1>
+  <h1 class="title">Dados de Biodiversidade:</h1>
   <p class="subtitle">Desafios e oportunidades</p>
 
 <div class="quarto-title-authors">
@@ -407,7 +407,7 @@ Tainá Rocha
 </section>
 <section id="a-biodiversidade-na-era-do-big-data" class="slide level2">
 <h2>A biodiversidade na era do big data</h2>
-<p>Dados genômicos, ocorrência de espécies e outros são exemplos mais evidentes</p>
+<p>Dados genômicos, ocorrência de espécies são exemplos mais evidentes</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
@@ -428,21 +428,21 @@ Tainá Rocha
 <img data-src="images/papers.png" style="width:150.0%" class="r-stretch quarto-figure-center"></section>
 <section id="desafios" class="slide level2">
 <h2>Desafios</h2>
-<p>Computacionais : Processamento e RH qualificado</p>
+<p>Computacionais: Processamento e RH qualificado</p>
 
 <img data-src="images/compute.png" style="width:100.0%" class="r-stretch quarto-figure-center"><p>Feng et al.&nbsp;2020</p>
 </section>
 <section id="desafios-1" class="slide level2">
 <h2>Desafios</h2>
-<p>Dados de ocorrência de espécies :</p>
+<p>Dados de ocorrência de espécies:</p>
 <ul>
 <li><p>Integração de diferentes bases (diferentes conceitos taxonômicos, diferentes unidades / medidas)</p></li>
-<li><p>Inúmeras fontes de erros nas bases dados* (identificação incorreta, coordenadas imprecisas, dados provenientes de grades* etc etc…)</p></li>
+<li><p>Inúmeras fontes de erros nas bases dados (identificação incorreta, coordenadas imprecisas, dados provenientes de grades, etc., etc…)</p></li>
 </ul>
 </section>
 <section id="gridder" class="slide level2">
 <h2>Gridder</h2>
-<p>Ferramenta para melhorar/corrigir a qualidade de dados do <a href="https://www.gbif.org/">GBIF</a> provenientes de sistemas de grades.</p>
+<p>Ferramenta para melhorar/corrigir a qualidade de dados provenientes de sistemas de grades, especialmente as do <a href="https://www.gbif.org/">GBIF</a>.</p>
 
 <img data-src="images/gridder.png" style="width:90.0%" class="r-stretch quarto-figure-center"></section>
 <section id="gridder-1" class="slide level2">
@@ -453,8 +453,8 @@ Tainá Rocha
 <li><p>Recuperar metadados desses sistemas</p></li>
 </ul>
 </section>
-<section id="instalção" class="slide level2">
-<h2>Instalção</h2>
+<section id="instalação" class="slide level2">
+<h2>Instalação</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">"BiogeographyLab/gridder"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -591,7 +591,7 @@ Tainá Rocha
 <div class="cell">
 
 </div>
-<p>Sist. de grade disponibilizado no pacote</p>
+<p>Sistema de grade disponibilizado no pacote</p>
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">data</span>(<span class="st">"grid_ID_9"</span>)</span>
 <span id="cb16-2"><a href="#cb16-2"></a><span class="fu">plot</span>(grid_ID_9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -605,7 +605,7 @@ Tainá Rocha
 <h2><code>assess_env_uncertainty</code></h2>
 <p>Acessando um dado de elevação</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>nasadem <span class="ot">=</span> rgee<span class="sc">::</span>ee<span class="sc">$</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="sc">$</span><span class="fu">select</span>(<span class="st">'elevation'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>nasadem <span class="ot">=</span> rgee<span class="sc">::</span>ee<span class="sc">$</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="sc">$</span><span class="fu">select</span>(<span class="st">'elevation'</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="assess_env_uncertainty-2" class="slide level2">
