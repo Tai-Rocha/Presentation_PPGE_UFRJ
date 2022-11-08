@@ -576,7 +576,14 @@ Tainá Rocha
 <section id="grid_generation-1" class="slide level2">
 <h2><code>grid_generation</code></h2>
 <p>Simulando um sistema de grade baseado em metadados</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">plot</span>(simulated_grid,</span>
+<span id="cb15-2"><a href="#cb15-2"></a>   <span class="at">xlim=</span><span class="fu">c</span>(<span class="fu">extent</span>(input_occ_prj)[<span class="dv">1</span>],<span class="fu">extent</span>(input_occ_prj)[<span class="dv">1</span>]<span class="sc">+</span><span class="dv">110000</span>),</span>
+<span id="cb15-3"><a href="#cb15-3"></a>   <span class="at">ylim=</span><span class="fu">c</span>(<span class="fu">extent</span>(input_occ_prj)[<span class="dv">3</span>],<span class="fu">extent</span>(input_occ_prj)[<span class="dv">3</span>]<span class="sc">+</span><span class="dv">110000</span>))</span>
+<span id="cb15-4"><a href="#cb15-4"></a></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="fu">plot</span>(input_occ_prj,<span class="at">add=</span>T,<span class="at">col=</span><span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
+</div>
 <img data-src="index_files/figure-revealjs/check_simulated-1.png" width="480" class="r-stretch quarto-figure-center"></section>
 <section id="assess_env_uncertainty" class="slide level2">
 <h2><code>assess_env_uncertainty</code></h2>
@@ -586,8 +593,8 @@ Tainá Rocha
 </div>
 <p>Sist. de grade disponibilizado no pacote</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">data</span>(<span class="st">"grid_ID_9"</span>)</span>
-<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">plot</span>(grid_ID_9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">data</span>(<span class="st">"grid_ID_9"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">plot</span>(grid_ID_9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="index_files/figure-revealjs/gri_id_9-1.png" width="960" class="r-stretch quarto-figure-center"><div class="cell">
@@ -598,14 +605,14 @@ Tainá Rocha
 <h2><code>assess_env_uncertainty</code></h2>
 <p>Acessando um dado de elevação</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>nasadem <span class="ot">=</span> rgee<span class="sc">::</span>ee<span class="sc">$</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="sc">$</span><span class="fu">select</span>(<span class="st">'elevation'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>nasadem <span class="ot">=</span> rgee<span class="sc">::</span>ee<span class="sc">$</span><span class="fu">Image</span>(<span class="st">'NASA/NASADEM_HGT/001'</span>)<span class="sc">$</span><span class="fu">select</span>(<span class="st">'elevation'</span>)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="assess_env_uncertainty-2" class="slide level2">
 <h2><code>assess_env_uncertainty</code></h2>
 <p>Variação | Incerteza ambiental</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>std_dev <span class="ot">=</span> gridder<span class="sc">::</span><span class="fu">assess_env_uncertainty</span>(<span class="at">x=</span> nasadem, <span class="at">y=</span> grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>std_dev <span class="ot">=</span> gridder<span class="sc">::</span><span class="fu">assess_env_uncertainty</span>(<span class="at">x=</span> nasadem, <span class="at">y=</span> grid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Extracting information [0/336]..."
 Number of features: Calculating ...
@@ -613,7 +620,7 @@ Number of features: 336                     </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">print</span>(std_dev, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">print</span>(std_dev, <span class="at">n=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 336 features and 12 fields
 Geometry type: POLYGON
@@ -637,6 +644,13 @@ First 3 features:
 <p>Visualizando a variação da elevação no espaço geográfico</p>
 
 <img data-src="index_files/figure-revealjs/uncert_plot-1.png" width="768" class="r-stretch quarto-figure-center"></section>
+<section id="gbif-ebbe-nielsen-challenge" class="slide level2">
+<h2>GBIF Ebbe Nielsen Challenge</h2>
+
+<img data-src="images/honors.png" style="width:100.0%" class="r-stretch quarto-figure-center"><center>
+<a href="https://ecoevorxiv.org/repository/view/3752/">Preprint</a> &amp; <a href="https://github.com/BiogeographyLab/gridder.github.io">Github</a>
+</center>
+</section>
 <section id="take-home-messages" class="slide level2">
 <h2>Take-home messages</h2>
 <ul>
