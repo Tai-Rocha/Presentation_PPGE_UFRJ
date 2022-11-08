@@ -210,7 +210,7 @@ grid = grid_ID_9 |>
 Acessando um dado de elevação
 
 ```{r rgee_nasaden, echo=TRUE}
-nasadem = rgee::ee$Image('NASA/NASADEM_HGT/001')$select('elevation')  
+nasadem = rgee::ee$Image('NASA/NASADEM_HGT/001')$select('elevation') 
 ```
 
 ## `assess_env_uncertainty`
