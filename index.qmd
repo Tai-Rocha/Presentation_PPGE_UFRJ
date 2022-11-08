@@ -20,7 +20,7 @@ source("_extensions/coeos/setup-ggplot2-coeos.R")
 
 Dados genômicos, ocorrência de espécies e outros são exemplos mais evidentes
 
-```{r genetcis, echo=FALSE, fig.align='left', out.height="70%"}
+```{r genetcis, echo=FALSE, fig.align='left', out.height="100%"}
 knitr::include_graphics("images/gen_occ.png")
 ```
 
@@ -225,7 +225,11 @@ ggplot(data = grid_ID_9) +
   scale_fill_viridis_c(option = "plasma", trans = "sqrt")
 ```
 
-## Take home Message
+## Take-home messages
+
+- Apesar de crescente o volume de dados, também é ampla variedade de fontes de erros associados
+
+- Minimizar as fontes de erros é essencial para bons resultados e insights 
 
 ## 
 
