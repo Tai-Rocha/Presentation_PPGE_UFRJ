@@ -20,7 +20,7 @@ source("_extensions/coeos/setup-ggplot2-coeos.R")
 
 Dados genômicos, ocorrência de espécies e outros são exemplos mais evidentes
 
-```{r genetcis, echo=FALSE, fig.align='left', out.height="30%"}
+```{r genetcis, echo=FALSE, fig.align='left', out.height="70%"}
 knitr::include_graphics("images/gen_occ.png")
 ```
 
